@@ -10,7 +10,7 @@ export class AppController {
 
   @IsPublic()
   @Get()
-  getHello(): string {
+  getHello(): { message: string } {
     return this.appService.getHello();
   }
 
