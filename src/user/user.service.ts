@@ -8,29 +8,52 @@ import * as bcrypt from 'bcrypt';
 export class UserService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(createUserDto: CreateUserDto) {
+  async createUser(createUserDto: CreateUserDto) {
     const user = {
       ...createUserDto,
       password: await bcrypt.hash(createUserDto.password, 10),
-    };
+      dateOfBirth: new Date(createUserDto.dateOfBirth)
+    }
 
     const createdUser = await this.prisma.user.create({
-      data: user,
-    });
+      data: {
+        ...user
+      },
+    })
 
-    return { ...createdUser, password: undefined };
+    // const { password, ...createdUserWithoutPassword } = createdUser;
+    // return createdUserWithoutPassword as CreateUserDto;
+    return {
+      ...createdUser, 
+      password: undefined
+    }
   }
 
-  findById(id: number) {
-    return this.prisma.user.findUnique({
+  async findById(id: number){
+    const user = await this.prisma.user.findUnique({
       where: { id },
     });
+
+    if(!user) 
+      return null
+
+      return {
+        ...user, 
+        password: undefined
+      }
   }
 
-  findByEmail(email: string): Promise<CreateUserDto | null> {
-    return this.prisma.user.findUnique({
+  async findByEmail(email: string) {
+    const user = await this.prisma.user.findUnique({
       where: { email },
     });
+
+    if(!user) 
+      return null
+
+    return {
+      ...user
+    }
   }
   // findAll() {
   //   return `This action returns all user`;

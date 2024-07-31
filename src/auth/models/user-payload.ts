@@ -1,7 +1,15 @@
 export interface UserPayload {
-  sub: number;
-  email: string;
+  id?: number
   name: string;
-  iat?: number;
-  exp?: number;
+  email: string;
+  alias: string;
+  cpf: string;
+  dateOfBirth: string;
+  phone: string;
+  cep?: string;
+  streetName?: string;
+  city?: string;
+  residenceNumber?: string;
+  iat?: string;
+  exp?: string;
 }

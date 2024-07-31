@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Query, Param } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { IsPublic } from 'src/auth/decorators/is-public.decorator';
@@ -9,19 +9,19 @@ export class UserController {
 
   @IsPublic()
   @Post()
-  create(@Body() createUserDto: CreateUserDto): Promise<CreateUserDto | null> {
-    return this.userService.create(createUserDto);
+  create(@Body() createUserDto: CreateUserDto):any {
+    return this.userService.createUser(createUserDto);
   }
 
   @Get(':id')
-  findById(@Param('id') id: number): Promise<CreateUserDto | null> {
+  findById(@Param('id') id: number): any {
     return this.userService.findById(id);
   }
 
-  @Get()
-  findByEmail(@Query('email') email: string): Promise<CreateUserDto | null> {
-    return this.userService.findByEmail(email);
-  }
+  // @Get()
+  // findByEmail(@Query('email') email: string): Promise<CreateUserDto | null> {
+  //   return this.userService.findByEmail(email);
+  // }
 
   // @Get()
   // findAll() {

@@ -13,11 +13,33 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
+  async validateUser(email: string, password: string) {
+    const user = await this.userService.findByEmail(email);
+
+    if (user) {
+      const isValid = bcrypt.compareSync(password, user.password);
+      if (isValid) {
+        const { password, ...userWithoutPassword } = user;
+        return userWithoutPassword;
+      }
+    }
+
+    throw new Error('Email ou senha inválidos');
+  }
+
   login(user: User): UserToken {
     const payload: UserPayload = {
-      sub: user.id,
+      id: user.id,
       email: user.email,
       name: user.name,
+      alias: user.alias,
+      cpf: user.cpf,
+      dateOfBirth: user.dateOfBirth,
+      phone: user.phone,
+      cep: user?.cep,
+      streetName: user?.streetName,
+      city: user?.city,
+      residenceNumber: user?.residenceNumber,
     };
 
     const jwtToken = this.jwtService.sign(payload);
@@ -27,19 +49,4 @@ export class AuthService {
     };
   }
 
-  async validateUser(email: string, password: string) {
-    const user = await this.userService.findByEmail(email);
-
-    if (user) {
-      const isValid = await bcrypt.compareSync(password, user.password);
-      if (isValid) {
-        return {
-          ...user,
-          password: undefined,
-        };
-      }
-    }
-
-    throw new Error('Email ou senha inválidos');
-  }
 }
