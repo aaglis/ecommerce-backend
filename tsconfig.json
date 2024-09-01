@@ -9,7 +9,11 @@
     "target": "ES2021",
     "sourceMap": true,
     "outDir": "./dist",
-    "baseUrl": "./",
+    "baseUrl": "./src", // Ajustado para 'src' se seus arquivos estiverem na pasta 'src'
+    "paths": {
+      "*": ["node_modules/*"], // Adiciona configuração para resolver módulos de node_modules
+      "@/*": ["*"] // Permite importar usando caminhos baseados no 'src'
+    },
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": false,
@@ -17,5 +21,7 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false
-  }
+  },
+  "include": ["src/**/*.ts"], // Inclui todos os arquivos TypeScript na pasta 'src'
+  "exclude": ["node_modules"] // Exclui a pasta 'node_modules'
 }
