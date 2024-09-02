@@ -46,7 +46,7 @@ export class CreateUserDto extends User {
   cpf: string;
 
   @IsDateString()
-  dateOfBirth: string;
+  dateOfBirth: Date;
 
   @IsString()
   @IsNotEmpty()

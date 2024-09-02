@@ -4,7 +4,7 @@ export interface UserFromJwt {
   name: string;
   alias: string,
   cpf: string,
-  dateOfBirth: string,
+  dateOfBirth: Date,
   phone: string,
   cep?: string,
   streetName?: string,

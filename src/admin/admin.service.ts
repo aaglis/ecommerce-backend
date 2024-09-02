@@ -32,7 +32,7 @@ export class AdminService {
     });
   }
 
-  async findByEmail(email: string) {
+  findByEmail(email: string) {
     return this.prisma.admin.findUnique({
       where: {
         email,

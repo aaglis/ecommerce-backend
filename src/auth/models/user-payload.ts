@@ -4,7 +4,7 @@ export interface UserPayload {
   email: string;
   alias: string;
   cpf: string;
-  dateOfBirth: string;
+  dateOfBirth: Date;
   phone: string;
   cep?: string;
   streetName?: string;

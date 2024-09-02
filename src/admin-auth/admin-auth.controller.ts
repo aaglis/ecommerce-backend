@@ -16,11 +16,11 @@ export class AdminAuthController {
   constructor(private readonly authService: AdminAuthService) {}
 
   @IsPublic()
+  @UseGuards(AdminLocalAuthGuard)
   @Post('login')
   @HttpCode(HttpStatus.OK)
-  @UseGuards(AdminLocalAuthGuard)
   login(@Request() req: AdminAuthRequest) {
-    console.log(req.admin);
+    console.log('oque está chegando aqui no controller:',req.admin);
     return this.authService.login(req.admin);
   }
 }

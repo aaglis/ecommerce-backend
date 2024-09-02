@@ -5,7 +5,7 @@ export class User {
   lastName: string;
   alias: string;
   cpf: string;
-  dateOfBirth: string;
+  dateOfBirth: Date;
   phone: string;
   email: string;
   password: string;

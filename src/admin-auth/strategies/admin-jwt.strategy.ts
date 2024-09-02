@@ -5,7 +5,7 @@ import { AdminPayload } from '../models/admin-payload';
 import { AdminFromJwt } from '../models/admin-from-jwt';
 
 @Injectable()
-export class AdminJwtStrategy extends PassportStrategy(Strategy) {
+export class AdminJwtStrategy extends PassportStrategy(Strategy, 'local-admin') {
   constructor() {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),

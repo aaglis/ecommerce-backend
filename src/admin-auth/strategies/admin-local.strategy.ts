@@ -4,12 +4,14 @@ import { Strategy } from 'passport-local';
 import { AdminAuthService } from '../admin-auth.service';
 
 @Injectable()
-export class AdminLocalStrategy extends PassportStrategy(Strategy) {
+export class AdminLocalStrategy extends PassportStrategy(Strategy, 'local-admin') {
   constructor(private adminAuthService: AdminAuthService) {
     super({ usernameField: 'email' });
   }
 
-  validate(email: string, password: string) {
-    return this.adminAuthService.validateUser(email, password);
+  async validate(email: string, password: string) {
+    const result = await this.adminAuthService.validateUser(email, password) 
+    console.log('resultado validacao',result)
+    return result;
   }
 }
