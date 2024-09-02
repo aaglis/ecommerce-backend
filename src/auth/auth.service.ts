@@ -48,5 +48,4 @@ export class AuthService {
       access_token: jwtToken,
     };
   }
-
 }
