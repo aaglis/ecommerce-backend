@@ -14,7 +14,7 @@ export class UserService {
       password: await bcrypt.hash(createUserDto.password, 10),
       dateOfBirth: new Date(createUserDto.dateOfBirth)
     }
-
+    //aglis bonito
     const createdUser = await this.prisma.user.create({
       data: {
         ...user
