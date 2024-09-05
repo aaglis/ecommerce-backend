@@ -40,8 +40,8 @@ export class CreateUserDto extends User {
 
   @IsString()
   @IsNotEmpty()
-  @Matches(/^\d{11}$/, {
-    message: 'cpf precisa ter 11 dígitos.',
+  @Matches(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, {
+    message: 'CPF precisa estar no formato 000.000.000-00.',
   })
   cpf: string;
 
