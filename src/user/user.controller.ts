@@ -9,7 +9,7 @@ export class UserController {
 
   @IsPublic()
   @Post()
-  create(@Body() createUserDto: CreateUserDto):any {
+  create(@Body() createUserDto: CreateUserDto) {
     return this.userService.createUser(createUserDto);
   }
 

@@ -2,6 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { AdminDto } from './dto/admin.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
+import {
+  AdminNotFoundException,
+  InvalidEmailException,
+  InvalidIdException,
+} from './exceptions/custom-exceptions';
 @Injectable()
 export class AdminService {
   constructor(private readonly prisma: PrismaService) {}
@@ -13,9 +18,7 @@ export class AdminService {
     };
 
     const createdAdmin = await this.prisma.admin.create({
-      data: {
-        ...admin,
-      },
+      data: { ...admin },
     });
 
     return {
@@ -25,18 +28,30 @@ export class AdminService {
   }
 
   async getById(id: number) {
-    return this.prisma.admin.findUnique({
-      where: {
-        id,
-      },
+    if (!id) {
+      throw new InvalidIdException();
+    }
+
+    const user = await this.prisma.admin.findUnique({
+      where: { id },
     });
+
+    if (!user) throw new AdminNotFoundException();
+
+    return { ...user, password: undefined };
   }
 
-  findByEmail(email: string) {
-    return this.prisma.admin.findUnique({
-      where: {
-        email,
-      },
+  async findByEmail(email: string) {
+    const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!EMAIL_REGEX.test(email)) throw new InvalidEmailException();
+
+    const user = await this.prisma.admin.findUnique({
+      where: { email },
     });
+
+    if (!user) throw new AdminNotFoundException();
+
+    return user;
   }
 }

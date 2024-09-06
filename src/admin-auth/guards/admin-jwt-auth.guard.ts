@@ -1,6 +1,7 @@
 // NestJS
 import {
   ExecutionContext,
+  ForbiddenException,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -28,11 +29,21 @@ export class AdminJwtAuthGuard extends AuthGuard('jwt') {
       return true;
     }
 
+    const request = context.switchToHttp().getRequest();
+    const user = request.user;
+    console.log(user?.role, 'oi');
+    if (user?.role !== 'superAdmin') {
+      throw new ForbiddenException(
+        'Apenas Super Admins podem realizar essa ação.',
+      );
+    }
+
     const canActivate = super.canActivate(context);
 
     if (typeof canActivate === 'boolean') {
       return canActivate;
     }
+
 
     const canActivatePromise = canActivate as Promise<boolean>;
 

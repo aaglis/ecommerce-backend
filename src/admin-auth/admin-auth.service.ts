@@ -20,9 +20,9 @@ export class AdminAuthService {
       const isValid = await bcrypt.compareSync(password, admin.password);
       if (isValid) {
         return {
-        ...admin,
-        password: undefined,
-        }
+          ...admin,
+          password: undefined,
+        };
       }
     }
 
