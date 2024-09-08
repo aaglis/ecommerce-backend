@@ -38,6 +38,8 @@ export class AuthService {
       cep: user?.cep,
       streetName: user?.streetName,
       city: user?.city,
+      neighborhood: user?.neighborhood,
+      state: user?.state,
       residenceNumber: user?.residenceNumber,
     };
 

@@ -63,20 +63,30 @@ export class CreateUserDto extends User {
   @IsNotEmpty()
   phone: string;
 
-  @ApiProperty({ example: 'Rua Teste' })
-  @IsString()
-  @IsOptional()
-  streetName?: string;
-
   @ApiProperty({ example: '00000-000' })
   @IsString()
   @IsOptional()
   cep?: string;
 
+  @ApiProperty({ example: 'Rua Teste' })
+  @IsString()
+  @IsOptional()
+  streetName?: string;
+
   @ApiProperty({ example: 'Fortaleza' })
   @IsString()
   @IsOptional()
   city?: string;
+
+  @ApiProperty({ example: 'Bairro Teste' })
+  @IsString()
+  @IsOptional()
+  neighborhood?: string;
+
+  @ApiProperty({ example: 'CE' })
+  @IsString()
+  @IsOptional()
+  state?: string;
 
   @ApiProperty({ example: '1011' })
   @IsString()

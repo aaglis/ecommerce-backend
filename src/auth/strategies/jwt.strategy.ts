@@ -26,6 +26,8 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'user-local') {
       cep: payload.cep,
       streetName: payload?.streetName,
       city: payload?.city,
+      neighborhood: payload?.neighborhood,
+      state: payload?.state,
       residenceNumber: payload?.residenceNumber,
     };
   }

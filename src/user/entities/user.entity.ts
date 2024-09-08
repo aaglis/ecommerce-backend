@@ -13,4 +13,6 @@ export class User {
   streetName?: string;
   city?: string;
   residenceNumber?: string;
+  neighborhood?: string;
+  state?: string;
 }
