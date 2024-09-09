@@ -2,12 +2,7 @@ import { IsString, IsNumber, IsNotEmpty, IsIn, Min } from "class-validator";
 import { Product } from "../entities/product.entity";
 
 
-export class CreateProductDto extends Product { //o algoritmo do id-hash deve ser implementado
-    /*
-    @IsNotEmpty()
-    @IsString()
-    readonly id: string;
-    */
+export class CreateProductDto extends Product { 
     @IsNotEmpty()
     @IsString()
     readonly name: string;
@@ -25,5 +20,5 @@ export class CreateProductDto extends Product { //o algoritmo do id-hash deve se
     @IsNotEmpty()
     @IsNumber()
     @Min(0)
-    readonly stock: number;
+    readonly stock: number;    
 } 

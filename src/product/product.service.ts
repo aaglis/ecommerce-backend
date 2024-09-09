@@ -49,11 +49,11 @@ export class ProductService {
             throw new Error('Produto não encontrado.');
         }
         
-        if(product.name === name) {
-            await this.prisma.product.delete({ where: { id } });
-        } else {
+        if(product.name.toLowerCase() !== name.toLowerCase()) {
             throw new Error ('Erro ao remover produto: nome não corresponde.');
-        }
+        } 
+        
+        await this.prisma.product.delete({ where: { id } });
   
     }
 
