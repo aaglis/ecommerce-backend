@@ -34,13 +34,12 @@ export class UserService {
       where: { id },
     });
 
-    if(!user) 
-      return null
+    if(!user) return null;
 
       return {
         ...user, 
         password: undefined
-      }
+      };
   }
 
   async findByEmail(email: string) {
@@ -48,12 +47,11 @@ export class UserService {
       where: { email },
     });
 
-    if(!user) 
-      return null
+    if(!user) return null;
 
     return {
       ...user
-    }
+    };
   }
   // findAll() {
   //   return `This action returns all user`;

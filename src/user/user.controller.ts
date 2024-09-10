@@ -13,7 +13,6 @@ export class UserController {
     return this.userService.createUser(createUserDto);
   }
 
-  @IsPublic()
   @Get(':id')
   findById(@Param('id') id: number): any {
     return this.userService.findById(id);

@@ -40,11 +40,13 @@ CREATE TABLE "Order" (
 CREATE TABLE "OrderProduct" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "orderId" TEXT NOT NULL,
-    "productId" TEXT NOT NULL,
     "amount" INTEGER NOT NULL,
-    "price" REAL NOT NULL,
+    "productId" TEXT,
+    "productPrice" REAL NOT NULL,
+    "productName" TEXT NOT NULL,
+    "productType" TEXT NOT NULL,
     CONSTRAINT "OrderProduct_orderId_fkey" FOREIGN KEY ("orderId") REFERENCES "Order" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT "OrderProduct_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT "OrderProduct_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product" ("id") ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 -- CreateIndex
