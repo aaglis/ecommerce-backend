@@ -27,6 +27,7 @@ export class AdminController {
   @ApiOperation({ summary: 'Busca um administrador por ID' })
   @UseGuards(AdminJwtAuthGuard)
   getById(@Param('id') id: number) {
+    console.log('entrou aqui')
     return this.adminService.getById(Number(id));
   }
 
@@ -41,5 +42,12 @@ export class AdminController {
   @UseGuards(AdminJwtAuthGuard)
   async getByEmail(@Param('email') email: string) {
     return await this.adminService.findByEmail(email);
+  }
+
+  @Get('admins/all')
+  @ApiOperation({ summary: 'Busca todos os administradores' })
+  @UseGuards(AdminJwtAuthGuard)
+  async getAll() {
+    return await this.adminService.getAllAdmins();
   }
 }
