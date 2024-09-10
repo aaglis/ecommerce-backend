@@ -8,15 +8,16 @@ export class User {
   lastName: string;
   alias: string;
   cpf: string;
-  dateOfBirth: string;
+  dateOfBirth: Date;
   phone: string;
   email: string;
   password: string;
   cep?: string;
   streetName?: string;
   city?: string;
+  neighborhood?: string;
+  state?: string;
   residenceNumber?: string;
-
   @OneToMany(() => Order, order => order.user)
   orders?: Order[];
 }

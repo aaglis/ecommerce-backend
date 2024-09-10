@@ -5,29 +5,28 @@ import { User } from 'src/user/entities/user.entity';
 import { UserPayload } from './models/user-payload';
 import { JwtService } from '@nestjs/jwt';
 import { UserToken } from './models/user-token';
+import { UnauthorizedError } from './errors/unauthorized.error';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly userService: UserService,
     private readonly jwtService: JwtService,
+    private readonly userService: UserService,
   ) {}
 
-  async validateUser(email: string, password: string) {
+  async validateUser(email: string, password: string): Promise<User> {
     const user = await this.userService.findByEmail(email);
-
     if (user) {
       const isValid = bcrypt.compareSync(password, user.password);
       if (isValid) {
-        const { password, ...userWithoutPassword } = user;
-        return userWithoutPassword;
+        return { ...user, password: undefined };
       }
     }
 
-    throw new Error('Email ou senha inválidos');
+    throw new UnauthorizedError('Email ou senha inválidos user');
   }
 
-  login(user: User): UserToken {
+  async login(user: User): Promise<UserToken> {
     const payload: UserPayload = {
       id: user.id,
       email: user.email,
@@ -39,14 +38,13 @@ export class AuthService {
       cep: user?.cep,
       streetName: user?.streetName,
       city: user?.city,
+      neighborhood: user?.neighborhood,
+      state: user?.state,
       residenceNumber: user?.residenceNumber,
     };
 
-    const jwtToken = this.jwtService.sign(payload);
-
     return {
-      access_token: jwtToken,
+      access_token: this.jwtService.sign(payload),
     };
   }
-
 }
