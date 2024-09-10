@@ -44,7 +44,6 @@ export class AdminJwtAuthGuard extends AuthGuard('jwt') {
       return canActivate;
     }
 
-
     const canActivatePromise = canActivate as Promise<boolean>;
 
     return canActivatePromise.catch((error) => {

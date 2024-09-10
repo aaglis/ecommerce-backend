@@ -16,15 +16,25 @@ import { OrderModule } from './order/order.module';
 import { OrderService } from './order/order.service';
 
 @Module({
-  imports: [PrismaModule, UserModule, AuthModule,AdminAuthModule, AdminModule, ProductModule, OrderModule],
+  imports: [
+    PrismaModule,
+    UserModule,
+    AuthModule,
+    AdminAuthModule,
+    AdminModule,
+    ProductModule,
+    OrderModule,
+  ],
   controllers: [AppController, OrderController],
   providers: [
     AppService,
-    //{
-    //  provide: APP_GUARD,
-    //  useClass: JwtAuthGuard,
-    //},
-    ProductService, PrismaService, OrderService
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+    ProductService,
+    PrismaService,
+    OrderService,
   ],
 })
 export class AppModule {}
