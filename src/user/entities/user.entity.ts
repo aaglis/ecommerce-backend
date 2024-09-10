@@ -1,3 +1,6 @@
+import { OneToMany } from "typeorm";
+import { Order } from "../../order/entities/order.entity";
+
 export class User {
   id?: number;
   name: string;
@@ -12,7 +15,9 @@ export class User {
   cep?: string;
   streetName?: string;
   city?: string;
-  residenceNumber?: string;
   neighborhood?: string;
   state?: string;
+  residenceNumber?: string;
+  @OneToMany(() => Order, order => order.user)
+  orders?: Order[];
 }
