@@ -6,19 +6,21 @@ import {
   Body,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { IsPublic } from 'src/auth/decorators/is-public.decorator';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { Product } from './entities/product.entity';
+import { AdminOrSuperAdminJwtAuthGuard } from 'src/admin-auth/guards/admin-or-super-admin.guard';
 
-@IsPublic()
 @Controller('product')
 export class ProductController {
   constructor(private productService: ProductService) {}
 
   @Post('create')
+  @UseGuards(AdminOrSuperAdminJwtAuthGuard)
   async create(@Body() createProductDto: CreateProductDto): Promise<Product> {
     return await this.productService.create(createProductDto);
   }
@@ -37,11 +39,13 @@ export class ProductController {
     return await this.productService.remove(id, name);
   }
 
+  @IsPublic()
   @Get('find-all')
   async findAll() {
     return await this.productService.findAll();
   }
 
+  @IsPublic()
   @Get('find-oneId/:id')
   async findOneId(@Param('id') id: string) {
     return await this.productService.findOneId(id);

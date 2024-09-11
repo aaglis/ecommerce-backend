@@ -1,6 +1,7 @@
-import { Controller, Post, Get, Body, Param } from '@nestjs/common';
+import { Controller, Post, Get, Body, Param, UseGuards } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { CreateOrderDto } from './dto/order.dto';
+import { AdminOrSuperAdminJwtAuthGuard } from 'src/admin-auth/guards/admin-or-super-admin.guard';
 
 @Controller('order')
 export class OrderController {
@@ -12,6 +13,7 @@ export class OrderController {
   }
 
   @Get('find-all')
+  @UseGuards(AdminOrSuperAdminJwtAuthGuard)
   async findAll() {
     return await this.order.findAll();
   }

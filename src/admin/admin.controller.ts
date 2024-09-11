@@ -3,6 +3,7 @@ import { AdminService } from './admin.service';
 import { AdminDto } from './dto/admin.dto';
 import { AdminJwtAuthGuard } from 'src/admin-auth/guards/admin-jwt-auth.guard';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { AdminOrSuperAdminJwtAuthGuard } from 'src/admin-auth/guards/admin-or-super-admin.guard';
 
 @Controller('admin')
 export class AdminController {
@@ -27,7 +28,7 @@ export class AdminController {
   @ApiOperation({ summary: 'Busca um administrador por ID' })
   @UseGuards(AdminJwtAuthGuard)
   getById(@Param('id') id: number) {
-    console.log('entrou aqui')
+    console.log('entrou aqui');
     return this.adminService.getById(Number(id));
   }
 
@@ -46,7 +47,7 @@ export class AdminController {
 
   @Get('admins/all')
   @ApiOperation({ summary: 'Busca todos os administradores' })
-  @UseGuards(AdminJwtAuthGuard)
+  @UseGuards(AdminOrSuperAdminJwtAuthGuard)
   async getAll() {
     return await this.adminService.getAllAdmins();
   }

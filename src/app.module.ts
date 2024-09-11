@@ -14,6 +14,7 @@ import { PrismaService } from './prisma/prisma.service';
 import { OrderController } from './order/order.controller';
 import { OrderModule } from './order/order.module';
 import { OrderService } from './order/order.service';
+import { ProductController } from './product/product.controller';
 
 @Module({
   imports: [
@@ -25,7 +26,7 @@ import { OrderService } from './order/order.service';
     ProductModule,
     OrderModule,
   ],
-  controllers: [AppController, OrderController],
+  controllers: [AppController, OrderController, ProductController],
   providers: [
     AppService,
     {
