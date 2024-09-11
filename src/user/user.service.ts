@@ -53,9 +53,15 @@ export class UserService {
       ...user,
     };
   }
-  // findAll() {
-  //   return `This action returns all user`;
-  // }
+
+  async findAllUsers() {
+    const users = await this.prisma.user.findMany();
+
+    return users.map((user) => ({
+      ...user,
+      password: undefined,
+    }));
+  }
 
   // update(id: number, updateUserDto: UpdateUserDto) {
   //   return `This action updates a #${id} user`;

@@ -56,9 +56,9 @@ export class AdminService {
   }
 
   async getAllAdmins() {
-    const admins = await this.prisma.admin.findMany(); 
+    const admins = await this.prisma.admin.findMany();
     return admins.map((admin) => {
       return { ...admin, password: undefined };
-    }) 
+    });
   }
 }

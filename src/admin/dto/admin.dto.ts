@@ -1,4 +1,10 @@
-import { IsEmail, IsNotEmpty, Matches } from 'class-validator';
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  Matches,
+} from 'class-validator';
 import { Admin } from '../entities/admin.entity';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -19,4 +25,8 @@ export class AdminDto extends Admin {
       'Senha precisa ter 8 caracteres, uma letra maiúscula e um caractere especial.',
   })
   password: string;
+
+  @IsString()
+  @IsOptional()
+  role?: string;
 }
