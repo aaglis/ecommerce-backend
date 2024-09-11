@@ -35,11 +35,19 @@ export class ProductService {
     }
 
     async findOneId(id: string): Promise<Product> {
-        return this.prisma.product.findUnique({ where: {id} });         
+        const product = await this.prisma.product.findUnique({ where: { id } });
+        if (!product) {
+        throw new NotFoundException(`Produto com id ${id} não encontrado.`);
+        }
+        return product;         
     }
 
-    findOneName(name: string) {
-        return this.prisma.product.findUnique({ where: {name} });
+    async findOneName(name: string) {
+        const product = await this.prisma.product.findUnique({ where: {name} });
+        if (!product) {
+            throw new NotFoundException(`Produto com nome ${name} não encontrado.`);
+        }
+        return product;
     }
 
     async remove(id: string, name: string): Promise<void> {

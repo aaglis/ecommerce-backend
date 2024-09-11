@@ -1,4 +1,4 @@
-import { IsString, IsNumber, IsNotEmpty, IsIn, Min } from "class-validator";
+import { IsString, IsNumber, IsNotEmpty, IsIn, Min, IsUrl } from "class-validator";
 import { Product } from "../entities/product.entity";
 
 
@@ -16,6 +16,11 @@ export class CreateProductDto extends Product {
     @IsNumber()
     @Min(0)
     readonly price: number;
+
+    @IsNotEmpty()
+    @IsUrl()
+    readonly iamgeUrl: string;
+
 
     @IsNotEmpty()
     @IsNumber()

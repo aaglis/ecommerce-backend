@@ -35,6 +35,7 @@ model Product {
   type      String
   price     Float
   stock     Int
+  imageUrl  String
   order     OrderProduct[]
 }
 

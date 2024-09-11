@@ -18,6 +18,9 @@ export class Product {
     @Column('int')
     stock: number;
 
+    @Column()
+    imageUrl: string;
+
     @OneToMany(() => OrderProduct, orderProduct => orderProduct.product)
     orderProducts?: OrderProduct[];
 }
