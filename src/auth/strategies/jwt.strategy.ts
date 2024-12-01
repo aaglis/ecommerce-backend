@@ -3,10 +3,9 @@ import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { UserFromJwt } from '../models/user-from-jwt';
 import { UserPayload } from '../models/user-payload';
-import { env } from 'process';
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy) {
+export class JwtStrategy extends PassportStrategy(Strategy, 'user-local') {
   constructor() {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -19,7 +18,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     return {
       id: payload.id,
       email: payload.email,
-      name: payload.name, 
+      name: payload.name,
       alias: payload.alias,
       cpf: payload.cpf,
       dateOfBirth: payload.dateOfBirth,
@@ -27,7 +26,9 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       cep: payload.cep,
       streetName: payload?.streetName,
       city: payload?.city,
-      residenceNumber: payload?.residenceNumber,     
+      neighborhood: payload?.neighborhood,
+      state: payload?.state,
+      residenceNumber: payload?.residenceNumber,
     };
   }
 }

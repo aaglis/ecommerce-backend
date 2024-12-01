@@ -3,21 +3,24 @@ import { OrderProduct } from '../../order/entities/orderProduct.entity';
 
 @Entity('product')
 export class Product {
-    @PrimaryColumn()
-    id: string;
+  @PrimaryColumn()
+  id: string;
 
-    @Column()
-    name: string;
+  @Column()
+  name: string;
 
-    @Column()
-    type: string;
+  @Column()
+  type: string;
 
-    @Column('decimal')
-    price: number;
+  @Column('decimal')
+  price: number;
 
-    @Column('int')
-    stock: number;
+  @Column('int')
+  stock: number;
 
-    @OneToMany(() => OrderProduct, orderProduct => orderProduct.product)
-    orderProducts?: OrderProduct[];
+  @Column()
+  imageUrl: string;
+
+  @OneToMany(() => OrderProduct, (orderProduct) => orderProduct.product)
+  orderProducts?: OrderProduct[];
 }

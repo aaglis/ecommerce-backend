@@ -1,7 +1,8 @@
-import { Controller, Post, Body, Get, Param } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { IsPublic } from 'src/auth/decorators/is-public.decorator';
+import { AdminOrSuperAdminJwtAuthGuard } from 'src/admin-auth/guards/admin-or-super-admin.guard';
 
 @Controller('user')
 export class UserController {
@@ -9,13 +10,19 @@ export class UserController {
 
   @IsPublic()
   @Post()
-  create(@Body() createUserDto: CreateUserDto):any {
+  create(@Body() createUserDto: CreateUserDto) {
     return this.userService.createUser(createUserDto);
   }
 
   @Get(':id')
   findById(@Param('id') id: number): any {
     return this.userService.findById(id);
+  }
+
+  @Get('users/all')
+  @UseGuards(AdminOrSuperAdminJwtAuthGuard)
+  findAll(): any {
+    return this.userService.findAllUsers();
   }
 
   // @Get()

@@ -12,34 +12,34 @@ export class UserService {
     const user = {
       ...createUserDto,
       password: await bcrypt.hash(createUserDto.password, 10),
-      dateOfBirth: new Date(createUserDto.dateOfBirth)
-    }
-    //aglis bonito
+      dateOfBirth: new Date(createUserDto.dateOfBirth),
+    };
+
     const createdUser = await this.prisma.user.create({
       data: {
-        ...user
+        ...user,
       },
-    })
+    });
 
     // const { password, ...createdUserWithoutPassword } = createdUser;
     // return createdUserWithoutPassword as CreateUserDto;
     return {
-      ...createdUser, 
-      password: undefined
-    }
+      ...createdUser,
+      password: undefined,
+    };
   }
 
-  async findById(id: number){
+  async findById(id: number) {
     const user = await this.prisma.user.findUnique({
       where: { id },
     });
 
-    if(!user) return null;
+    if (!user) return null;
 
-      return {
-        ...user, 
-        password: undefined
-      };
+    return {
+      ...user,
+      password: undefined,
+    };
   }
 
   async findByEmail(email: string) {
@@ -47,16 +47,22 @@ export class UserService {
       where: { email },
     });
 
-    if(!user) return null;
+    if (!user) return null;
 
     return {
-      ...user
+      ...user,
     };
   }
-  // findAll() {
-  //   return `This action returns all user`;
-  // }
-  
+
+  async findAllUsers() {
+    const users = await this.prisma.user.findMany();
+
+    return users.map((user) => ({
+      ...user,
+      password: undefined,
+    }));
+  }
+
   // update(id: number, updateUserDto: UpdateUserDto) {
   //   return `This action updates a #${id} user`;
   // }
